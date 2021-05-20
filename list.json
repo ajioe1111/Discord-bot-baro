@@ -1,0 +1,74 @@
+{
+    "users_list": [
+        {
+            "id": "74647150273123882",
+            "username": "test",
+            "properties": {
+                "level": 0,
+                "xp": 0,
+                "warn": 0,
+                "join_hub": true,
+                "coin": 0,
+                "joinDate": 1620596183413
+            }
+        },
+        {
+            "id": "333660691644809216",
+            "username": "Fuuka",
+            "properties": {
+                "level": 0,
+                "xp": 0,
+                "warn": 0,
+                "join_hub": true,
+                "coin": 0,
+                "joinDate": "2020-12-13T15:17:06.628Z"
+            }
+        },
+        {
+            "id": "746471502735736882",
+            "username": "Sasaki",
+            "properties": {
+                "level": 0,
+                "xp": 0,
+                "warn": 0,
+                "join_hub": false,
+                "coin": 0,
+                "joinDate": "2021-05-11T15:36:33.677Z"
+            }
+        },
+        {
+            "id": "797818679071997954",
+            "username": "DEV",
+            "properties": {
+                "level": 0,
+                "xp": 0,
+                "warn": 0,
+                "join_hub": true,
+                "coin": 0,
+                "joinDate": "2021-01-10T13:33:30.651Z"
+            }
+        }
+    ],
+    "server_list": [
+        {
+            "guild": "Project Baro RP [RUS]",
+            "id": "789579914869080074",
+            "default_role": "796792864365084753"
+        },
+        {
+            "guild": "Ketsal [ВЭК]",
+            "id": "796804573154115615",
+            "default_role": "796824184822693969"
+        },
+        {
+            "guild": "Alliance [ВРСК]",
+            "id": "789580508090597396",
+            "default_role": "796830685171941406"
+        },
+        {
+            "guild": "Ursus [ОСНФ]",
+            "id": "799302316984762438",
+            "default_role": "800353986505867305"
+        }
+    ]
+}

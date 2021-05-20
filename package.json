@@ -1,0 +1,17 @@
+{
+  "name": "botv4",
+  "version": "4.0.0",
+  "description": "new baro bot for project baro rp",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "fuuka",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "heapify": "^0.4.0",
+    "moment": "^2.29.1"
+  },
+  "type": "module"
+}
