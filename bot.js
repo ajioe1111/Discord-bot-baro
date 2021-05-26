@@ -1,10 +1,11 @@
-import { Client, Collection, DiscordAPIError, TextChannel } from 'discord.js';
+import { Client, Collection, TextChannel } from 'discord.js';
 import config from './configuration.js';
 import * as fs from 'fs';
 import { checkPerm } from './service/checkperm.js';
 import { guildMemberUpdate, memberRemove, newMemberJoin } from './service/memberControl.js';
 import { getArguments } from './service/getArguments.js';
 import { checkMessage, messageDelete, messageUpdate } from './service/checkMessage.js';
+import { xpControl } from './service/levelSystem.js';
 export const client = new Client();
 client.commands = new Collection();
 
@@ -37,11 +38,14 @@ const cooldowns = new Collection();
 
 // On Ready
 client.once('ready', () => {
+  if (client.user.username != 'A.I Covenant') {
+    client.user.setUsername('A.I Covenant');
+  }
   console.log('Ready!');
   let findGuild = client.guilds.cache.find(guild => guild.id === hubID);
-  logChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на log Хаба
-  gameChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на game Хаба
-  warnChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479');
+  logChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на log Хаба #ff0000
+  gameChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на game Хаба #ff0000
+  warnChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); // заменить на канал предупреждений в хабе #ff0000
 
 });
 
@@ -58,6 +62,8 @@ client.on('message', message => {
   memberPerm = checkPerm(message);
   msg = message;
   checkMessage(message);
+  xpControl(message);
+
 
   // Конец блок
 

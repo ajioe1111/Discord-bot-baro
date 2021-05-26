@@ -1,51 +1,19 @@
 {
     "users_list": [
         {
-            "id": "74647150273123882",
-            "username": "test",
-            "properties": {
-                "level": 0,
-                "xp": 0,
-                "warn": 0,
-                "join_hub": true,
-                "coin": 0,
-                "joinDate": 1620596183413
-            }
-        },
-        {
             "id": "333660691644809216",
             "username": "Fuuka",
             "properties": {
-                "level": 0,
-                "xp": 0,
+                "level": 1,
+                "xp": 500,
                 "warn": 0,
                 "join_hub": true,
                 "coin": 0,
-                "joinDate": "2020-12-13T15:17:06.628Z"
-            }
-        },
-        {
-            "id": "746471502735736882",
-            "username": "Sasaki",
-            "properties": {
-                "level": 0,
-                "xp": 0,
-                "warn": 0,
-                "join_hub": false,
-                "coin": 0,
-                "joinDate": "2021-05-11T15:36:33.677Z"
-            }
-        },
-        {
-            "id": "797818679071997954",
-            "username": "DEV",
-            "properties": {
-                "level": 0,
-                "xp": 0,
-                "warn": 0,
-                "join_hub": true,
-                "coin": 0,
-                "joinDate": "2021-01-10T13:33:30.651Z"
+                "joinDate": "2020-12-13T15:17:06.628Z",
+                "experienceGainDate": "2021-05-26T21:27:10.360Z",
+                "stepToCoin": 1,
+                "gameLoss": 0,
+                "gameWin": 0
             }
         }
     ],

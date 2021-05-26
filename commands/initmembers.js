@@ -26,7 +26,11 @@ function checkOwner(message) {
                         warn: 0,
                         join_hub: true,
                         coin: 0,
-                        joinDate: memberJoinDate[i]
+                        joinDate: memberJoinDate[i],
+                        experienceGainDate: 0,
+                        stepToCoin: 0,
+                        gameLoss: 0,
+                        gameWin: 0
                     }
                 }
                 database.users_list.push(user);
@@ -42,7 +46,7 @@ function checkOwner(message) {
 
 export default {
     name: "initmembers",
-    aliases: ["initmembers", "init"],
+    aliases: ["init"],
     guildOnly: true,
     memberpermissions:"ADMINISTRATOR",
     execute(message) {

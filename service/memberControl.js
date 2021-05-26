@@ -28,7 +28,11 @@ export function newMemberJoin(member) {
                     warn: 0,
                     join_hub: true,
                     coin: 0,
-                    joinDate: member.joinedAt
+                    joinDate: member.joinedAt,
+                    experienceGainDate: 0,
+                    stepToCoin: 0,
+                    gameLoss: 0,
+                    gameWin: 0
                 }
             };
             database.users_list.push(user);

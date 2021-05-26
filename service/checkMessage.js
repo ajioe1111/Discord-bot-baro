@@ -9,7 +9,7 @@ const path = './words.json';
  * @param {Discord.Message} message 
  */
 export function checkMessage(message) {
-    if (memberPerm.hasPermission('ADMINISTRATOR')) {
+    if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) {
         return;
     }
     bannedWords(message);
@@ -119,7 +119,7 @@ export function deleteWord(msg, args) {
  * @param {Discord.Message} message 
  */
 export function messageDelete(message) {
-    if (message.author.bot) { return; }
+    if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == message.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
     const embed = new Discord.MessageEmbed()
