@@ -14,6 +14,7 @@ let warnEmbed;
  * @param {*} args 
  */
 function findMember(args) {
+    database = JSON.parse(fs.readFileSync("./list.json"));
     let findId = args[0];
     let memberGuild = client.guilds.cache.find(guild => guild.id == hubID);
     let findMember = memberGuild.members.cache.find(mem => {
@@ -59,7 +60,7 @@ function warnMessage(args) {
         .setTitle('Выдано предупреждение!')
         .setURL('https://wiki.projectbaro.ru/ru/Правила')
         .setAuthor(member.user.tag, `${member.user.displayAvatarURL()}`)
-        .setDescription(`*При получении 3-х предупреждений будет выдана блокировка\nСейчас их* **${database.users_list[userIndex].properties.warn} из 3**`)
+        .setDescription(`*При получении 3-х предупреждений будет выдана блокировка\nСейчас их*  **${database.users_list[userIndex].properties.warn} из 3**`)
         .setThumbnail(`https://media.discordapp.net/attachments/573490270025416714/843932341247541248/pngegg.png?width=886&height=510`)
         .addFields(
             { name: 'Кому выдано', value: member, inline: false },
@@ -79,7 +80,7 @@ export default {
     guildOnly: true,
     memberpermissions: "VIEW_AUDIT_LOG",
     cooldown: 1,
-    usage: "!warn @user \"Причина\"",
+    usage: "!warn id \"Причина\"",
     execute(message, args) {
         findMember(args);
     },

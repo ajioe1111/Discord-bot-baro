@@ -45,9 +45,9 @@ export default {
     aliases: ["kick"],
     description: "Кикает юзера из всех серверов",
     guildOnly: true,
-    memberpermissions: "PRIORITY_SPEAKER",
+    memberpermissions: "ADMINISTRATOR",
     cooldown: 5,
-    usage: "<!kick @user \"Причина\">",
+    usage: "<!kick id \"Причина\">",
     execute(message, args) {
         kick(message, args);
     },

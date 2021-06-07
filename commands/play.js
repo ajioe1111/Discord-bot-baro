@@ -7,7 +7,7 @@ export default {
     name: "play",
     aliases: ["play"],
     guildOnly: true,
-    cooldown: 30,
+    cooldown: 10,
     usage: "<!play>",
     async execute(message, args) {
         await play(message, args);

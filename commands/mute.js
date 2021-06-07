@@ -38,6 +38,7 @@ function findMember(message) {
 
 function muted(message, args) {
     let time = args[1];
+    if (time == undefined) { message.reply('Нужно указать время'); return; }
     let timeInt = args[2]; //ч - час, м - минуты, с - секунды.
     let desc = 'Без причины';
     if (args[3])
@@ -106,7 +107,7 @@ export default {
     name: "mute",
     aliases: ["заглушить"],
     guildOnly: true,
-    memberpermissions: "PRIORITY_SPEAKER",
+    memberpermissions: "VIEW_AUDIT_LOG",
     cooldown: 1,
     usage: "<usage>",
     execute(message, args) {

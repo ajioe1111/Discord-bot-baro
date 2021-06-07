@@ -8,7 +8,7 @@ export default {
     description: "Остонавливает воспроизведение музыки",
     guildOnly: true,
     memberpermissions:"VIEW_CHANNEL",
-    cooldown: 5,
+    cooldown: 0,
     usage: "<!stop>",
     execute(message, args) {
         stop();

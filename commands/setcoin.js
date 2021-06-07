@@ -9,7 +9,7 @@ export default {
     guildOnly: true,
     memberpermissions:"ADMINISTRATOR",
     cooldown:0,
-    usage: "<!setcoin 123214124312>",
+    usage: "<!setcoin 123214124312 кол-во>",
     execute(message, args) {
         setCoin(message, args);
     },

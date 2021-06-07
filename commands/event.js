@@ -95,26 +95,36 @@ let time;
 let desc;
 let defaultImage = 'https://media.discordapp.net/attachments/573490270025416714/843883139205300266/maxresdefault.png';
 
-function checkImage(args) {
+/**
+ * 
+ * @param {Discord.Message} message 
+ * @param {*} args 
+ * @returns 
+ */
+function checkImage(message, args) {
     let image;
     if (args[3]) {
         image = args[3].slice(1, args[3].length - 1);
-        if (!args[3].includes('https://media.discordapp.net/')) {
-            message.replay(`Ошибка загрузки изображения. Необходимо указать ссылку на картинку залитую в дискорд.\nБудет поставлена картинка по умолчанию`);
-            image = defaultImage;
+        let checkImage = String(image);
+        if (checkImage.includes('https://media.discordapp.net/') == false) {
+            if (checkImage.includes('https://cdn.discordapp.com/') == false) {
+                message.reply(`Ошибка загрузки изображения. Необходимо указать ссылку на картинку залитую в дискорд.\nБудет поставлена картинка по умолчанию`);
+                image = defaultImage;
+            }
         }
+
+        else { return image; }
     }
-    else {
+    if (args[3] == undefined) {
         image = defaultImage;
     }
     return image;
 }
 
-function messageReply(message, args) {
+function messageReply(message, args, image) {
     name = args[0].slice(1, args[0].length - 1); // Название игры
     time = args[1].slice(1, args[1].length - 1); // Время игры
     desc = args[2].slice(1, args[2].length - 1); // Описание игры
-    let image = checkImage(args);
     const embed = new Discord.MessageEmbed()
         .setColor('#0099ff')
         .setTitle(name)
@@ -139,9 +149,10 @@ export default {
     cooldown: 2,
     usage: "<usage>",
     execute(message, args) {
-        messageReply(message, args);
+        let image = checkImage(message, args);
+        messageReply(message, args, image);
         const date = getTargetDate(time).toDate();
-        const event = new Event(name, date, desc, checkImage(args));
+        const event = new Event(name, date, desc, image);
         addEvent(event);
         save();
     },

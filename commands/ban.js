@@ -45,9 +45,9 @@ export default {
     aliases: ["ban"],
     description: "Банит юзера из всех серверов",
     guildOnly: true,
-    memberpermissions: "PRIORITY_SPEAKER",
+    memberpermissions: "ADMINISTRATOR",
     cooldown: 5,
-    usage: "<!ban @user \"Причина\">",
+    usage: "<!ban id \"Причина\">",
     execute(message, args) {
         ban(message, args);
     },
