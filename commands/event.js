@@ -55,7 +55,7 @@ function notificationLoop() {
     while (notificationQueue.peekPriority() <= now) {
         const event = notificationQueue.pop();
         if (events.includes(event))
-            gameChannel.send(`||@everyone||\nНапоминание про игру\n${event.name} в ${event.date}!`).catch(console.error);
+            gameChannel.send(`||@everyone||\n✨ Напоминание про игру\n${event.name} в ${event.date}! ✨`).catch(console.error);
     }
     save();
 }
@@ -120,7 +120,7 @@ function messageReply(message, args) {
         .setTitle(name)
         .setDescription(`*${desc}*`)
         .addFields(
-            { name: 'Время сбора', value: `В **${time}** по мск.`, inline: false },
+            { name: 'Время сбора ⏰', value: `В **${time}** по мск.`, inline: false },
             { name: 'Точное время можно узнать тут', value: 'https://time100.ru', inline: false },
         )
         .setImage(image)

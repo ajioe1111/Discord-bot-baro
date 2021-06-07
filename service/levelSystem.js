@@ -152,3 +152,31 @@ export function myLevel(message) {
 
     message.reply(embed);
 }
+
+
+/**
+ * 
+ * @param {Discord.Message} message 
+ * @param {*} args 
+ */
+export function setCoin(message, args) {
+    const targetUser = args[0];
+    const targetCoin = Number(args[1]);
+    const findHub = client.guilds.cache.find(guild => guild.id == hubID);
+    const member = findHub.members.cache.find(member => member.id == targetUser);
+    if (!member) { message.reply(`Я не смог найти юзера с ID ${targetUser}`) };
+    database = JSON.parse(fs.readFileSync("./list.json"));
+    const userIndex = database.users_list.findIndex(user => user.id == targetUser);
+    database.users_list[userIndex].properties.coin = targetCoin;
+    fs.writeFileSync("./list.json", JSON.stringify(database));
+    const embed = new Discord.MessageEmbed()
+        .setColor('#800080')
+        .setTitle('Установлено новое кол-во coin\' у юзера!')
+        .setDescription(`Инициатор команды ${message.author}`)
+        .addFields(
+            { name: 'Юзер', value: `<@${member.id}>`, inline: true },
+            { name: 'Изменено на', value: targetCoin, inline: true },
+        )
+
+    logChannel.send(embed);
+}

@@ -122,6 +122,9 @@ export function messageDelete(message) {
     if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == message.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
+    if (!botlog) {
+        message.reply('Ошибка! не найден канал botlog! создайте его и повторите попытку');
+    }
     const embed = new Discord.MessageEmbed()
         .setColor('#ff8040')
         .setTitle('Удалено сообщение!')
@@ -145,6 +148,9 @@ export function messageUpdate(oldMessage, newMessage) {
     if (oldMessage.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == oldMessage.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
+    if (!botlog) {
+        message.reply('Ошибка! не найден канал botlog! создайте его и повторите попытку');
+    }
     const embed = new Discord.MessageEmbed()
         .setColor('#0080ff')
         .setTitle('📝Изменение сообщения📝')

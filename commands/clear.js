@@ -26,6 +26,10 @@ function clear(message, args) {
 function messageDelete(message, count, value) {
     let logGuild = client.guilds.cache.find(guild => guild.id == message.guild.id);
     let botlog = logGuild.channels.cache.find(channel => channel.name == 'botlog');
+    if (!botlog) {
+        message.reply(`Я не нашел канал botlog! создайте его и повторите попытку!`);
+        console.log(`Ошибка в команде clear. Не найден botlog`);
+    }
     message.channel.bulkDelete(count);
     const embed = new Discord.MessageEmbed()
         .setColor('#0099ff')

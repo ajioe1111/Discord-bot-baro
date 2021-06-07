@@ -12,7 +12,7 @@ client.commands = new Collection();
 // export переменных
 export let msg;
 export let memberPerm;
-export const hubID = '787699629944864839'; //Заменить ID
+export const hubID = '789579914869080074'; //Заменить ID
 export let logChannel;
 /**
  * @type {TextChannel}
@@ -43,9 +43,9 @@ client.once('ready', () => {
   }
   console.log('Ready!');
   let findGuild = client.guilds.cache.find(guild => guild.id === hubID);
-  logChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на log Хаба #ff0000
-  gameChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на game Хаба #ff0000
-  warnChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); // заменить на канал предупреждений в хабе #ff0000
+  logChannel = findGuild.channels.cache.find(channel => channel.id === '799306126159773726'); //заменить на log Хаба #ff0000
+  gameChannel = findGuild.channels.cache.find(channel => channel.id === '796803203835887657'); //заменить на game Хаба #ff0000
+  warnChannel = findGuild.channels.cache.find(channel => channel.id === '800767106748121118'); // заменить на канал предупреждений в хабе #ff0000
 
 });
 

@@ -12,6 +12,9 @@ import { client, hubID, logChannel } from '../bot.js'
 export function newMemberJoin(member) {
     const findGuild = client.guilds.cache.find(guild => guild.id === member.guild.id);
     const botlog = findGuild.channels.cache.find(botlog => botlog.name === 'botlog');
+    if (!botlog) {
+        message.reply('Ошибка! не найден канал botlog! создайте его и повторите попытку');
+    }
     const database = JSON.parse(fs.readFileSync("./list.json"));
     let userIndex = database.users_list.findIndex(user => user.id == member.id);
     //Если member зашел в хаб
@@ -127,6 +130,9 @@ export function newMemberJoin(member) {
 export function memberRemove(member) {
     const findGuild = client.guilds.cache.find(guild => guild.id === member.guild.id);
     const botlog = findGuild.channels.cache.find(botlog => botlog.name === 'botlog');
+    if (!botlog) {
+        message.reply('Ошибка! не найден канал botlog! создайте его и повторите попытку');
+    }
     const database = JSON.parse(fs.readFileSync("./list.json"));
     let userIndex = database.users_list.findIndex(user => user.id == member.id);
     if (member.guild.id === hubID) {
@@ -179,6 +185,9 @@ export function memberRemove(member) {
 export function guildMemberUpdate(oldMember, newMember) {
     const guild = oldMember.guild;
     const botlog = guild.channels.cache.find(memberGuild => memberGuild.name == 'botlog');
+    if (!botlog) {
+        message.reply('Ошибка! не найден канал botlog! создайте его и повторите попытку');
+    }
     if (newMember.nickname != oldMember.nickname) {
         const embed = new Discord.MessageEmbed()
             .setColor('#ff80ff')
