@@ -51,6 +51,7 @@ function bannedWords(message) {
  * @returns 
  */
 function checkUrl(message) {
+    if (message.channel.id == '851136274043371540') { return; }
     if (message.content.startsWith(`https://discord.com/channels/@me`) || memberPerm.hasPermission('EMBED_LINKS')) {
         return;
     }

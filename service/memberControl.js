@@ -186,7 +186,8 @@ export function guildMemberUpdate(oldMember, newMember) {
     const guild = oldMember.guild;
     const botlog = guild.channels.cache.find(memberGuild => memberGuild.name == 'botlog');
     if (!botlog) {
-        message.reply('Ошибка! не найден канал botlog! создайте его и повторите попытку');
+        console.log('Ошибка, botlog не найден!');
+        return;
     }
     if (newMember.nickname != oldMember.nickname) {
         const embed = new Discord.MessageEmbed()
@@ -194,7 +195,7 @@ export function guildMemberUpdate(oldMember, newMember) {
             .setAuthor('Система контроль', 'https://media.discordapp.net/attachments/573490270025416714/841041056182960139/favpng_flame-shield.png?width=598&height=675')
             .setTitle('Юзер поменял ник!')
             .setDescription(`${newMember}\nС **${oldMember.displayName}** НА **${newMember.displayName}**`)
-            botlog.send(embed);
+        botlog.send(embed);
     }
-    
+
 }
