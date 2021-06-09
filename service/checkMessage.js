@@ -51,7 +51,6 @@ function bannedWords(message) {
  * @returns 
  */
 function checkUrl(message) {
-    if (message.channel.id == '851136274043371540') { return; }
     if (message.content.startsWith(`https://discord.com/channels/@me`) || memberPerm.hasPermission('EMBED_LINKS')) {
         return;
     }
@@ -146,6 +145,7 @@ export function messageDelete(message) {
  * @param {Discord.Message} newMessage 
  */
 export function messageUpdate(oldMessage, newMessage) {
+    if (message.channel.id == '851136274043371540') { return; }
     if (oldMessage.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == oldMessage.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
