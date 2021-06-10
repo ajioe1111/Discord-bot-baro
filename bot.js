@@ -57,14 +57,14 @@ client.on('message', message => {
     message.reply('Я не работаю в личных сообщениях');
     return;
   }
+  if (message.member.roles.cache.find(role => role.name == 'mute')) {
+    message.delete({ timeout: 0 })
+      .then(message.author.send('На вас стоит **mute**! Пожалуйста, дождитесь его окончания.'))
+    return;
+  };
 
   // Блок выполнения сторонних функций
   memberPerm = checkPerm(message);
-  if (message.member.roles.cache.find(role => role.name == 'mute')) {
-    message.delete({ timeout: 1 })
-      .then(message.author.send('На вас стоит **mute**! Пожалуйста, дождитесь его окончания.'))
-      return;
-  };
   msg = message;
   checkMessage(message);
   xpControl(message);
