@@ -9,7 +9,7 @@ export default  {
     cooldown: 60,
     usage: "<usage>",
     execute:(message) => {
-        message.reply(`pong!\nВ работе уже ${client.uptime / 1000} секунд!}`);
+        message.reply(`pong!\nВ работе уже ${client.uptime / 1000} секунд!`);
 
     },
 }

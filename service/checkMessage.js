@@ -12,6 +12,11 @@ export function checkMessage(message) {
     if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) {
         return;
     }
+    if (message.member.roles.cache.find(role => role.name == 'mute')) {
+        message.delete({ timeout: 0 })
+            .then(message.author.send('На вас стоит **mute**! Пожалуйста, дождитесь его окончания.'))
+        return;
+    };
     bannedWords(message);
     checkUrl(message);
     return;
