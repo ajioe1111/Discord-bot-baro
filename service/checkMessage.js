@@ -150,7 +150,7 @@ export function messageDelete(message) {
  * @param {Discord.Message} newMessage 
  */
 export function messageUpdate(oldMessage, newMessage) {
-    if (message.channel.id == '851136274043371540') { return; }
+    if (oldMessage.channel.id == '851136274043371540') { return; }
     if (oldMessage.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == oldMessage.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
