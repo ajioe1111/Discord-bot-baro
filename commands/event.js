@@ -13,7 +13,7 @@ const events = [];
 /** @type {Array<Event>} */
 const notificationQueue = new Heapify(64, [], [], Event, Number);
 const notificationIntervals = [30, 10, 2];
-const notificationLoopInterval = 15 * 1000;
+const notificationLoopInterval = 1 * 1000;
 
 function load() {
     if (fs.existsSync(eventsJsonPath)) {
