@@ -124,6 +124,11 @@ export function deleteWord(msg, args) {
  * @param {Discord.Message} message 
  */
 export function messageDelete(message) {
+    console.log('Message deleted!')
+    if (!message) {
+        console.log('ошбика в удаление сообщения');
+        return;
+    }
     if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == message.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
