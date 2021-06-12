@@ -125,7 +125,7 @@ export function deleteWord(msg, args) {
  */
 export function messageDelete(message) {
     console.log('Message deleted!')
-    if (!message) {
+    if (!message || message.author == undefined || message.content == undefined || message.channel == undefined) {
         console.log('ошбика в удаление сообщения');
         return;
     }
@@ -146,7 +146,6 @@ export function messageDelete(message) {
         )
         .setTimestamp()
         .setThumbnail('https://media.discordapp.net/attachments/573490270025416714/843975587667902464/kisspng-rubbish-bins-waste-paper-baskets-recycling-bin-c-recycle-bin-5abcf486d5bc23.0333927715223328.png?width=510&height=510')
-        .setFooter(`id сообщения ${message.id} || id канала ${message.channel.id}`);
     botlog.send(embed);
 }
 /**
