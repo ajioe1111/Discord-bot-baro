@@ -63,6 +63,7 @@ function compatibilityCheck(buff, deBuff, quality) {
     if (buff == 'Отважность' && deBuff == 'Трусость') { return false; };
     if (buff == 'Мудрость' && deBuff == 'Тупость') { return false; };
     if (deBuff == 'Неуважение' && quality == 'Жертвенность') { return false; };
+    if (deBuff == 'Агрессивность' && quality == 'Дружелюбность') { return false; };
 }
 
 

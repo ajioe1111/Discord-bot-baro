@@ -10,6 +10,7 @@ export default  {
     usage: "<usage>",
     execute:(message) => {
         message.reply(`pong!\nВ работе уже ${client.uptime / 1000} секунд!`);
+        console.log('just ping');
 
     },
 }

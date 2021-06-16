@@ -124,11 +124,17 @@ export function deleteWord(msg, args) {
  * @param {Discord.Message} message 
  */
 export function messageDelete(message) {
-    console.log('Message deleted! start')
-    if (!message || message.author == undefined || message.content == undefined || message.channel == undefined) {
+    if (!message) {
         console.log('ошбика в удаление сообщения');
         return;
     }
+    console.log('Message deleted! start')
+    let messageContent = 'no content';
+    let messageAuthor = 'no author';
+    let messageChannel = 'no channel';
+    if (message.content != undefined) { messageContent = message.content };
+    if (message.author != undefined) { messageAuthor = message.author };
+    if (message.channel != undefined) { messageChannel = message.channel };
     if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == message.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
@@ -141,9 +147,9 @@ export function messageDelete(message) {
         .setTitle('Удалено сообщение!')
         .setAuthor('Система контроль', 'https://media.discordapp.net/attachments/573490270025416714/841041056182960139/favpng_flame-shield.png?width=598&height=675')
         .addFields(
-            { name: 'Автор', value: `<@${message.author.id}>`, inline: false },
-            { name: 'Сообщение', value: `${message.content}`, inline: false },
-            { name: 'Канал', value: `<#${message.channel.id}>`, inline: false },
+            { name: 'Автор', value: messageAuthor, inline: false },
+            { name: 'Сообщение', value: messageContent, inline: false },
+            { name: 'Канал', value: messageChannel, inline: false },
         )
         .setTimestamp()
         .setThumbnail('https://media.discordapp.net/attachments/573490270025416714/843975587667902464/kisspng-rubbish-bins-waste-paper-baskets-recycling-bin-c-recycle-bin-5abcf486d5bc23.0333927715223328.png?width=510&height=510')
