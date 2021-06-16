@@ -150,6 +150,10 @@ function stopInternal() {
 }
 
 export async function play(message, args) {
+    if (message.channel.id != textChannelId) {
+        message.reply(`Я выполняю команды только в <#${textChannelId}>`)
+        return;
+    }
     await queueLock.acquire(CONTROLS_LOCK, async () => await playInternal(message, args));
 }
 
