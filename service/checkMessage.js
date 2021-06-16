@@ -141,9 +141,9 @@ export function messageDelete(message) {
         .setTitle('Удалено сообщение!')
         .setAuthor('Система контроль', 'https://media.discordapp.net/attachments/573490270025416714/841041056182960139/favpng_flame-shield.png?width=598&height=675')
         .addFields(
-            { name: 'Автор', value: message.author, inline: false },
-            { name: 'Сообщение', value: message.content, inline: false },
-            { name: 'Канал', value: message.channel, inline: false },
+            { name: 'Автор', value: `<@${message.author.id}>`, inline: false },
+            { name: 'Сообщение', value: `${message.content}`, inline: false },
+            { name: 'Канал', value: `<#${message.channel.id}>`, inline: false },
         )
         .setTimestamp()
         .setThumbnail('https://media.discordapp.net/attachments/573490270025416714/843975587667902464/kisspng-rubbish-bins-waste-paper-baskets-recycling-bin-c-recycle-bin-5abcf486d5bc23.0333927715223328.png?width=510&height=510')
