@@ -124,7 +124,7 @@ export function deleteWord(msg, args) {
  * @param {Discord.Message} message 
  */
 export function messageDelete(message) {
-    console.log('Message deleted!')
+    console.log('Message deleted! start')
     if (!message || message.author == undefined || message.content == undefined || message.channel == undefined) {
         console.log('ошбика в удаление сообщения');
         return;
@@ -135,6 +135,7 @@ export function messageDelete(message) {
     if (!botlog) {
         message.reply('Ошибка! не найден канал botlog! создайте его и повторите попытку');
     }
+    console.log(`message deleted! created embed. add field: msg author ${message.author} || msg content ${message.content} || msg channel ${message.channel}`);
     const embed = new Discord.MessageEmbed()
         .setColor('#ff8040')
         .setTitle('Удалено сообщение!')
@@ -147,6 +148,8 @@ export function messageDelete(message) {
         .setTimestamp()
         .setThumbnail('https://media.discordapp.net/attachments/573490270025416714/843975587667902464/kisspng-rubbish-bins-waste-paper-baskets-recycling-bin-c-recycle-bin-5abcf486d5bc23.0333927715223328.png?width=510&height=510')
     botlog.send(embed);
+    console.log('message deleted! end');
+    return;
 }
 /**
  * 
