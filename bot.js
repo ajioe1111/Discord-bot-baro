@@ -6,6 +6,7 @@ import { guildMemberUpdate, memberRemove, newMemberJoin } from './service/member
 import { getArguments } from './service/getArguments.js';
 import { checkMessage, messageDelete, messageUpdate } from './service/checkMessage.js';
 import { xpControl } from './service/levelSystem.js';
+import { EROFS } from 'constants';
 export const client = new Client();
 client.commands = new Collection();
 
@@ -60,76 +61,85 @@ client.on('message', message => {
 
 
   // Блок выполнения сторонних функций
-  memberPerm = checkPerm(message);
-  msg = message;
-  checkMessage(message);
-  xpControl(message);
-
-
-  // Конец блок
-
-  if (!message.content.startsWith(config.prefix) || message.author.bot) return;
-
-  const args = getArguments(message.content.slice(config.prefix.length));
-  const posCommandName = args.shift();
-  const commandName = posCommandName.toLowerCase();
-  const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
-
-  // Проверка на существование команды
-  if (!command) return;
-
-
-  // Проверка аргументов
-  if (command.args && !args.length) {
-    let reply = `Нету аргрументов!, ${message.author}!`;
-
-    if (command.usage) {
-      reply += `\nПравильно использовать так: \`${config.prefix}${command.name} ${command.usage}\``;
-    }
-
-    return message.channel.send(reply);
+  try {
+    memberPerm = checkPerm(message);
+    msg = message;
+    checkMessage(message);
+    xpControl(message);
   }
-
-  // Проверка задержки
-  if (!cooldowns.has(command.name)) {
-    cooldowns.set(command.name, new Collection());
-  }
-
-
-  const now = Date.now();
-  const timestamps = cooldowns.get(command.name);
-  const cooldownAmount = (command.cooldown || 3) * 1000;
-
-
-  // Убирает задержку для Администратора
-  if (memberPerm.hasPermission('ADMINISTRATOR')) {
-    timestamps.delete(message.author.id), cooldownAmount
-  }
-
-  // Проверяет наличие прав
-  if (!memberPerm.hasPermission(command.memberpermissions)) {
-    message.reply(`Недостаточно прав!`);
+  catch (error) {
+    console.error('Error occured during guild member management exectuion', error);
     return;
   }
 
 
-  if (timestamps.has(message.author.id)) {
-    const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
-    if (now < expirationTime) {
-      // Если время ещё не прошло
-      const timeLeft = (expirationTime - now) / 1000;
-      return message.reply(`Пожалуйста подождите ещё ${timeLeft.toFixed(1)} секунд перед тем как использовать \`${command.name}\`.`);
+  if (!message.content.startsWith(config.prefix) || message.author.bot) return;
+
+  try {
+    const args = getArguments(message.content.slice(config.prefix.length));
+    const posCommandName = args.shift();
+    const commandName = posCommandName.toLowerCase();
+    const command = client.commands.get(commandName) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(commandName));
+
+    // Проверка на существование команды
+    if (!command) return;
+
+
+    // Проверка аргументов
+    if (command.args && !args.length) {
+      let reply = `Нету аргрументов!, ${message.author}!`;
+
+      if (command.usage) {
+        reply += `\nПравильно использовать так: \`${config.prefix}${command.name} ${command.usage}\``;
+      }
+
+      return message.channel.send(reply);
     }
-  } else {
-    timestamps.set(message.author.id, now);
-    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-    // Ошибка
-    try {
-      command.execute(message, args);
-    } catch (error) {
-      console.error(error);
-      message.reply('При попытке выполнить команду произошла ошибка!');
+
+    // Проверка задержки
+    if (!cooldowns.has(command.name)) {
+      cooldowns.set(command.name, new Collection());
     }
+
+
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.name);
+    const cooldownAmount = (command.cooldown || 3) * 1000;
+
+
+    // Убирает задержку для Администратора
+    if (memberPerm.hasPermission('ADMINISTRATOR')) {
+      timestamps.delete(message.author.id), cooldownAmount
+    }
+
+    // Проверяет наличие прав
+    if (!memberPerm.hasPermission(command.memberpermissions)) {
+      message.reply(`Недостаточно прав!`);
+      return;
+    }
+
+
+    if (timestamps.has(message.author.id)) {
+      const expirationTime = timestamps.get(message.author.id) + cooldownAmount;
+      if (now < expirationTime) {
+        // Если время ещё не прошло
+        const timeLeft = (expirationTime - now) / 1000;
+        return message.reply(`Пожалуйста подождите ещё ${timeLeft.toFixed(1)} секунд перед тем как использовать \`${command.name}\`.`);
+      }
+    }
+  } catch (error) {
+    console.error('Error occured on checking requirements for command execution', error);
+    return;
+  }
+
+  timestamps.set(message.author.id, now);
+  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+  // Ошибка
+  try {
+    command.execute(message, args);
+  } catch (error) {
+    console.error('Error occured during command execution', error);
+    message.reply('При попытке выполнить команду произошла ошибка!');
   }
 });
 
@@ -157,3 +167,7 @@ Promise.all(modulePromises)
   .then(() => client.login(config.token))
   .catch(console.error);
 
+process.on('uncaughtException', error => {
+  console.error("Uncaught exception occured.", error);
+  process.exit(1);
+});
