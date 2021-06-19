@@ -132,7 +132,8 @@ export function messageDelete(message) {
     let messageContent = 'no content';
     let messageAuthor = 'no author';
     let messageChannel = 'no channel';
-    if (message.content != undefined || message.content == '') { messageContent = message.content };
+    if (message.content != undefined) { messageContent = message.content };
+    if (message.content == ' ' || message.content == '  ') { messageContent = 'no content' };
     if (message.author != undefined) { messageAuthor = message.author };
     if (message.channel != undefined) { messageChannel = message.channel };
     if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) { return; }
