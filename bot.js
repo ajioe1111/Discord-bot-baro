@@ -127,19 +127,20 @@ client.on('message', message => {
         return message.reply(`Пожалуйста подождите ещё ${timeLeft.toFixed(1)} секунд перед тем как использовать \`${command.name}\`.`);
       }
     }
+
+
+    timestamps.set(message.author.id, now);
+    setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
+    // Ошибка
+    try {
+      command.execute(message, args);
+    } catch (error) {
+      console.error('Error occured during command execution', error);
+      message.reply('При попытке выполнить команду произошла ошибка!');
+    }
   } catch (error) {
     console.error('Error occured on checking requirements for command execution', error);
     return;
-  }
-
-  timestamps.set(message.author.id, now);
-  setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
-  // Ошибка
-  try {
-    command.execute(message, args);
-  } catch (error) {
-    console.error('Error occured during command execution', error);
-    message.reply('При попытке выполнить команду произошла ошибка!');
   }
 });
 
