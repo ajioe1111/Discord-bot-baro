@@ -167,6 +167,10 @@ export function setCoin(message, args) {
     if (!member) { message.reply(`Я не смог найти юзера с ID ${targetUser}`) };
     database = JSON.parse(fs.readFileSync("./list.json"));
     const userIndex = database.users_list.findIndex(user => user.id == targetUser);
+    if (userIndex == -1) {
+        message.reply('Ошибка в команде setcoin (ID не найден)');
+        return;
+    }
     database.users_list[userIndex].properties.coin = targetCoin;
     fs.writeFileSync("./list.json", JSON.stringify(database));
     const embed = new Discord.MessageEmbed()

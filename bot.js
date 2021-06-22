@@ -7,6 +7,7 @@ import { getArguments } from './service/getArguments.js';
 import { checkMessage, messageDelete, messageUpdate } from './service/checkMessage.js';
 import { xpControl } from './service/levelSystem.js';
 import { EROFS } from 'constants';
+import moment from 'moment';
 export const client = new Client();
 client.commands = new Collection();
 
@@ -41,6 +42,7 @@ const cooldowns = new Collection();
 client.once('ready', () => {
   if (client.user.username != 'A.I Covenant') {
     client.user.setUsername('A.I Covenant');
+    moment.locale('ru');
   }
   console.log('Ready!');
   let findGuild = client.guilds.cache.find(guild => guild.id === hubID);

@@ -125,8 +125,10 @@ async function setMediaStream(url) {
 async function playInternal(message, args) {
     const voiceConnection = await createVoiceConnection();
     const url = args[0];
-    let validate = await ytdl.validateURL(url);
-    if (!validate) {
+    let isValid = await ytdl.validateURL(url);
+    let videoInfo = await ytdl.getBasicInfo(url);
+    isValid &= !videoInfo.videoDetails.isPrivate;
+    if (!isValid) {
         message.reply('Некоректная ссылка!');
         return;
     }

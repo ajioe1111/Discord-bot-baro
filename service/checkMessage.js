@@ -129,13 +129,6 @@ export function messageDelete(message) {
         return;
     }
     console.log('Message deleted! start')
-    let messageContent = 'no content';
-    let messageAuthor = 'no author';
-    let messageChannel = 'no channel';
-    if (message.content != undefined) { messageContent = message.content };
-    if (message.content == ' ' || message.content == '  ') { messageContent = 'no content' };
-    if (message.author != undefined) { messageAuthor = message.author };
-    if (message.channel != undefined) { messageChannel = message.channel };
     if (memberPerm.hasPermission('ADMINISTRATOR') || message.author.bot) { return; }
     const guild = client.guilds.cache.find(guild => guild.id == message.guild.id)
     const botlog = guild.channels.cache.find(channel => channel.name === "botlog");
@@ -148,9 +141,9 @@ export function messageDelete(message) {
         .setTitle('Удалено сообщение!')
         .setAuthor('Система контроль', 'https://media.discordapp.net/attachments/573490270025416714/841041056182960139/favpng_flame-shield.png?width=598&height=675')
         .addFields(
-            { name: 'Автор', value: messageAuthor, inline: false },
-            { name: 'Сообщение', value: messageContent, inline: false },
-            { name: 'Канал', value: messageChannel, inline: false },
+            { name: 'Автор', value: message.author ? message.author : 'Без автора', inline: false },
+            { name: 'Сообщение', value: message.content ? message.content : 'Message deleted error (no content)', inline: false },
+            { name: 'Канал', value: message.channel ? message.channel : 'no channel', inline: false },
         )
         .setTimestamp()
         .setThumbnail('https://media.discordapp.net/attachments/573490270025416714/843975587667902464/kisspng-rubbish-bins-waste-paper-baskets-recycling-bin-c-recycle-bin-5abcf486d5bc23.0333927715223328.png?width=510&height=510')
@@ -178,9 +171,9 @@ export function messageUpdate(oldMessage, newMessage) {
         .setDescription(`**Изменения в канале:**${oldMessage.channel}\n**Изменил:**${oldMessage.author}`)
         .setThumbnail(oldMessage.author.displayAvatarURL())
         .addFields(
-            { name: 'Старое сообщение', value: oldMessage.content, inline: true },
-            { name: 'Новое сообщение', value: newMessage.content, inline: true },
-            { name: 'Ссылка на сообщение', value: newMessage.url, inline: false },
+            { name: 'Старое сообщение', value: oldMessage.content ? oldMessage.content : 'no content', inline: true },
+            { name: 'Новое сообщение', value: newMessage.content ? newMessage.content : 'no content', inline: true },
+            { name: 'Ссылка на сообщение', value: newMessage.url ? newMessage.url : 'Нету ссылки', inline: false },
         )
         .setTimestamp()
         .setFooter(`channel id: ${oldMessage.channel.id} || user id ${oldMessage.author.id}`);

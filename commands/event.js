@@ -20,14 +20,16 @@ function load() {
         const json = fs.readFileSync(eventsJsonPath);
         const events = JSON.parse(json);
         events.forEach(event => {
-            addEvent(new Event(event.name, Date.parse(event.date), event.description, event.imageUrl));
+            addEvent(new Event(event.name, new Date(event.date), event.description, event.imageUrl));
         });
     }
+    save();
 
 }
 
 function save() {
     const json = JSON.stringify(events);
+    console.log('Saving', json);
     fs.writeFileSync(eventsJsonPath, json);
 }
 
@@ -39,8 +41,9 @@ function addEvent(event) {
     if (event.date < new Date())
         return;
     events.push(event);
-    for (const interval in notificationIntervals) {
-        const notificationDate = getNotificationDate(event.date, interval);
+    for (let i = 0; i < notificationIntervals.length; i++) {
+        const notificationDate = getNotificationDate(event.date, notificationIntervals[i]);
+        console.log('will be notification', new Date(notificationDate));
         if (notificationDate > moment().unix())
             notificationQueue.push(event, notificationDate);
     }
@@ -52,12 +55,15 @@ function removeEvent(event) {
 
 function notificationLoop() {
     const now = moment().unix();
+    let hasChanges = false;
     while (notificationQueue.peekPriority() <= now) {
         const event = notificationQueue.pop();
         if (events.includes(event))
-            gameChannel.send(`||@everyone||\n✨ Напоминание про игру\n${event.name} в ${event.date}! ✨`).catch(console.error);
+        const date = moment(event.date).format('LLLL');
+        gameChannel.send(`||@everyone||\n✨ Напоминание про игру\n${event.name} в ${date}! ✨`).catch(console.error);
     }
-    save();
+    if (hasChanges)
+        save();
 }
 
 /**
@@ -152,6 +158,7 @@ export default {
         let image = checkImage(message, args);
         messageReply(message, args, image);
         const date = getTargetDate(time).toDate();
+        console.log('targed date', date);
         const event = new Event(name, date, desc, image);
         addEvent(event);
         save();
