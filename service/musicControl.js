@@ -11,8 +11,8 @@ const queue = [];
 const queueLock = new AsyncLock();
 const enqueue = (item) => queue.push(item);
 const dequeue = () => queue.shift();
-const voiceChannelId = '851136379353038848';
-const textChannelId = '851136274043371540';
+const voiceChannelId = '851136379353038848'; // 
+const textChannelId = '851136274043371540'; // 
 
 const CONTROLS_LOCK = 'music-controls';
 
@@ -107,7 +107,7 @@ async function setMediaStream(url) {
     const embedMessage = new Discord.MessageEmbed()
         .setColor('#ff0000')
         .setTitle(`🎵 Сейчас играет ${sosi.videoDetails.title} 🎵`)
-        .setAuthor(sosi.videoDetails.author.name, sosi.videoDetails.author.thumbnails[0].url, sosi.videoDetails.video_url)
+    //    .setAuthor(sosi.videoDetails.author.name, sosi.videoDetails.author.thumbnails[0].url, sosi.videoDetails.video_url)
         .setURL(sosi.videoDetails.video_url)
         .addFields(
             { name: 'Лайков ❤', value: sosi.videoDetails.likes, inline: true },

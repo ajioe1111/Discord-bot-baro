@@ -20,7 +20,8 @@ function load() {
         const json = fs.readFileSync(eventsJsonPath);
         const events = JSON.parse(json);
         events.forEach(event => {
-            addEvent(new Event(event.name, new Date(event.date), event.description, event.imageUrl));
+            const eventDate = Number.isInteger(event.date) ? moment.unix(event.date).toDate() : moment(event.date).toDate();
+            addEvent(new Event(event.name, eventDate, event.description, event.imageUrl));
         });
     }
     save();
@@ -43,7 +44,7 @@ function addEvent(event) {
     events.push(event);
     for (let i = 0; i < notificationIntervals.length; i++) {
         const notificationDate = getNotificationDate(event.date, notificationIntervals[i]);
-        console.log('will be notification', new Date(notificationDate));
+        console.log('will be notification', moment.unix(notificationDate).format('LLLL'));
         if (notificationDate > moment().unix())
             notificationQueue.push(event, notificationDate);
     }
@@ -58,9 +59,10 @@ function notificationLoop() {
     let hasChanges = false;
     while (notificationQueue.peekPriority() <= now) {
         const event = notificationQueue.pop();
-        if (events.includes(event))
-        const date = moment(event.date).format('LLLL');
-        gameChannel.send(`||@everyone||\n✨ Напоминание про игру\n${event.name} в ${date}! ✨`).catch(console.error);
+        if (events.includes(event)) {
+            const date = moment(event.date).format('LLLL');
+            gameChannel.send(`||@everyone||\n✨ Напоминание про игру\n${event.name} в ${date}! ✨`).catch(console.error);
+        };
     }
     if (hasChanges)
         save();
