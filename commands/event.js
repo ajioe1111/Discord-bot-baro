@@ -57,11 +57,12 @@ function removeEvent(event) {
 function notificationLoop() {
     const now = moment().unix();
     let hasChanges = false;
-    while (notificationQueue.peekPriority() <= now) {
+    while (notificationQueue.length != 0 && notificationQueue.peekPriority() <= now) {
         const event = notificationQueue.pop();
         if (events.includes(event)) {
-            const date = moment(event.date).format('LLLL');
-            gameChannel.send(`||@everyone||\n✨ Напоминание про игру\n${event.name} в ${date}! ✨`).catch(console.error);
+            // moment.locale('ru');
+            // const date = moment(event.date).format('LLLL');
+            // gameChannel.send(`||@everyone||\n✨ Напоминание про игру\n${event.name} в ${date}! ✨`).catch(console.error);
         };
     }
     if (hasChanges)
