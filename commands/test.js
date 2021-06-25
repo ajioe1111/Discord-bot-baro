@@ -1,6 +1,7 @@
 
 
 
+
 export default {
     name: "test",
     aliases: ["test"],
@@ -8,6 +9,6 @@ export default {
     cooldown: 2,
     usage: "<usage>",
     execute(message, args) {
-        
+      
     },
 };
