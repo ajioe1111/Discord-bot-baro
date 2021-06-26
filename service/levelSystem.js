@@ -21,6 +21,10 @@ function coolDown(experienceGainDate) {
  * @param {Discord.User} userID 
  */
 export function xpAdd(count, userID, channel) {
+    if (!Number.isInteger(count)) {
+        logChannel.send('Ошибка! нужно ввести число !xp add ЧИСЛО БЛЭАТЬ');
+        return;
+    } 
     let errorMsg = ["@everyone Произошла ошибка в добавления опыта!"]
     for (let i = 0; i < userID.length; i++) {
         let ID = userID[i];

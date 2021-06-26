@@ -32,8 +32,7 @@ export function randomCharacter(message) {
         .setDescription(`персонаж игрока ${message.author}`)
         .setThumbnail(message.author.displayAvatarURL())
         .addFields(
-            { name: 'Имя', value: playerName[0], inline: true },
-            { name: 'Фамилия', value: playerName[1], inline: true },
+            { name: 'Имя и Фамилия', value: `${playerName[0]} ${playerName[1]}`, inline: true },
             { name: 'Возраст', value: age, inline: true },
             { name: 'Семья', value: family, inline: true },
             { name: buff[0], value: buff[1], inline: false },
