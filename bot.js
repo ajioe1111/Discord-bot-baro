@@ -50,9 +50,6 @@ client.once('ready', () => {
   logChannel = findGuild.channels.cache.find(channel => channel.id === '799306126159773726'); //заменить на log Хаба #ff0000 796835391113658479 на 799306126159773726
   gameChannel = findGuild.channels.cache.find(channel => channel.id === '796803203835887657'); //заменить на game Хаба #ff0000 796835391113658479 на 796803203835887657
   warnChannel = findGuild.channels.cache.find(channel => channel.id === '800767106748121118'); // заменить на канал предупреждений в хабе #ff0000 796835391113658479 на 800767106748121118
-  logChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на log Хаба #ff0000 796835391113658479 на 799306126159773726
-  gameChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на game Хаба #ff0000 796835391113658479 на 796803203835887657
-  warnChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); // заменить на канал предупреждений в хабе #ff0000 796835391113658479 на 800767106748121118
 
 });
 
