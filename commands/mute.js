@@ -37,7 +37,7 @@ function findMember(message) {
 }
 
 function muted(message, args) {
-    let time = args[1];
+    let time = Number(args[1]);
     if (time == undefined) { message.reply('Нужно указать время'); return; }
     let timeInt = args[2]; //ч - час, м - минуты, с - секунды.
     let desc = 'Без причины';
@@ -59,16 +59,20 @@ function muted(message, args) {
             timeName = "Second's";
             break;
     };
+
     msgEmbed = embed(message, args);
     if (member.voice.channel) {
         member.voice.setMute(true);
         setTimeout(() => {
             if (member.voice.channel) { member.voice.setMute(false) }
-            else { return; }
         }, time * 1000);
     }
+
     member.roles.add(mutedRole);
-    setTimeout(() => member.roles.remove(mutedRole), time * 1000);
+    setTimeout(() => {
+        member.roles.remove(mutedRole);
+        member.send('mute был снят!');
+    }, time * 1000);
     botlog.send(msgEmbed);
 }
 
@@ -101,6 +105,27 @@ function embed(message, args) {
         .setTimestamp('timestamp')
         .setFooter('Система контроль', 'https://media.discordapp.net/attachments/573490270025416714/841041056182960139/favpng_flame-shield.png?width=598&height=675');
     return embed;
+}
+
+/**
+ * 
+ * @param {Discord.GuildMember} newMember 
+ */
+export function voiceMuteCheck(newMember) {
+    let mem = newMember.guild.members.cache.find(member => member.id == newMember.id);
+    let findMutedRole = mem.roles.cache.find(role => role.name == 'mute');
+    if (findMutedRole) {
+        if (mem.voice.channel) {
+            if (!mem.voice.mute) { mem.voice.setMute(true) }
+            return;
+        }
+
+    } else {
+        if (mem.voice.channel) {
+            if (mem.voice.mute) { mem.voice.setMute(false) }
+            return;
+        }
+    };
 }
 
 export default {

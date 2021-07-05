@@ -19,7 +19,23 @@ export function checkMessage(message) {
     };
     bannedWords(message);
     checkUrl(message);
+    serverName(message);
     return;
+}
+
+/**
+ * 
+ * @param {Discord.Message} message 
+ */
+function serverName(message) {
+    console.log(message.content);
+    let msgCont = message.content.toLowerCase();
+    let arr = ['как называется сервер', 'сервер как называется', 'называется сервер как', 'называется как сервер'];
+    let isServerName = arr.some(word => msgCont.includes(word));
+    if (isServerName) {
+        message.reply(`Сервер называется (PROJECT) ${message.guild.name}!`)
+            .then(message.delete({ timeout: 0 }));
+    }
 }
 
 /**

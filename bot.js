@@ -8,6 +8,7 @@ import { checkMessage, messageDelete, messageUpdate } from './service/checkMessa
 import { xpControl } from './service/levelSystem.js';
 import { EROFS } from 'constants';
 import moment from 'moment';
+import { voiceMuteCheck } from './commands/mute.js';
 export const client = new Client();
 client.commands = new Collection();
 
@@ -49,6 +50,9 @@ client.once('ready', () => {
   logChannel = findGuild.channels.cache.find(channel => channel.id === '799306126159773726'); //заменить на log Хаба #ff0000 796835391113658479 на 799306126159773726
   gameChannel = findGuild.channels.cache.find(channel => channel.id === '796803203835887657'); //заменить на game Хаба #ff0000 796835391113658479 на 796803203835887657
   warnChannel = findGuild.channels.cache.find(channel => channel.id === '800767106748121118'); // заменить на канал предупреждений в хабе #ff0000 796835391113658479 на 800767106748121118
+  logChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на log Хаба #ff0000 796835391113658479 на 799306126159773726
+  gameChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); //заменить на game Хаба #ff0000 796835391113658479 на 796803203835887657
+  warnChannel = findGuild.channels.cache.find(channel => channel.id === '796835391113658479'); // заменить на канал предупреждений в хабе #ff0000 796835391113658479 на 800767106748121118
 
 });
 
@@ -164,8 +168,9 @@ client.on('messageUpdate', (oldMessage, newMessage) => {
 client.on('guildMemberUpdate', (oldMember, newMember) => {
   guildMemberUpdate(oldMember, newMember);
 });
-
-
+client.on('voiceStateUpdate', (oldMember, newMember) => {
+  voiceMuteCheck(oldMember, newMember);
+});
 Promise.all(modulePromises)
   .then(() => client.login(config.token))
   .catch(console.error);
