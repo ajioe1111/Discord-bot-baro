@@ -56,8 +56,8 @@ function muted(message, args) {
             timeName = "Second's";
             break;
         default:
-            timeName = "Second's";
-            break;
+            message.reply('Нужно указать русскими буквами с либо м либо ч');
+            return;
     };
 
     msgEmbed = embed(message, args);
@@ -119,12 +119,14 @@ export function voiceMuteCheck(newMember) {
             if (!mem.voice.mute) { mem.voice.setMute(true) }
             return;
         }
+        else { return; }
 
     } else {
         if (mem.voice.channel) {
             if (mem.voice.mute) { mem.voice.setMute(false) }
             return;
         }
+        else { return; }
     };
 }
 

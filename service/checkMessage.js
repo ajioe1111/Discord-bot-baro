@@ -28,9 +28,8 @@ export function checkMessage(message) {
  * @param {Discord.Message} message 
  */
 function serverName(message) {
-    console.log(message.content);
     let msgCont = message.content.toLowerCase();
-    let arr = ['как называется сервер', 'сервер как называется', 'называется сервер как', 'называется как сервер'];
+    let arr = ['как называется сервер', 'сервер как называется', 'называется сервер как', 'называется как сервер', 'кaк сервер называется'];
     let isServerName = arr.some(word => msgCont.includes(word));
     if (isServerName) {
         message.reply(`Сервер называется (PROJECT) ${message.guild.name}!`)
